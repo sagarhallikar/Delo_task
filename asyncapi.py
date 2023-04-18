@@ -3,20 +3,20 @@ from flask import Flask, jsonify,redirect
 import asyncio
 
 app = Flask(__name__)
-app.route('/')
+
+@app.route('/')
 def index():
     return redirect('/asyncapi')
 
-async def async_task():
-    await asyncio.sleep(1)
-    return {'status': 'success'}
+async def hello():
+    await asyncio.sleep(1) 
+    return ("Hello!,Welocme to ASync API")
 
-    
 
-@app.route('/asyncapi', methods=['GET'])
+@app.route('/asyncapi',methods=['GET'])
 async def async_view():
-    result = await async_task()
+    result = await hello()
     return jsonify(result)
 
 if __name__ == '__main__':
-    app.run(host="0.0.0.0",port=5000)
+    app.run(host="0.0.0.0",port=3080)
